@@ -2,4 +2,4 @@
 
 ## Class Diagram
 
-![Class Diagram](r/images/class-diagram.png?raw=true "Class Diagram")
+![Class Diagram](images/class-diagram.png?raw=true "Class Diagram")
