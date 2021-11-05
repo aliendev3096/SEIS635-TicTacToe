@@ -7,7 +7,13 @@ public class Board {
         this.state = new String[] { null, null, null, null, null, null, null, null, null };
     }
 
-    public String RenderBoard()
+    public void RenderBoard()
+    {
+        var board = BuildBoard();
+        System.out.println(board);
+    }
+
+    public String BuildBoard()
     {
 
         String stateLine = " %s | %s | %s \n";
