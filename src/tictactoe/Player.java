@@ -1,7 +1,5 @@
 package tictactoe;
 
-import jdk.jshell.Snippet;
-
 import java.util.Scanner;
 
 public class Player {
@@ -27,6 +25,10 @@ public class Player {
 
     public String getName() {
         return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 
     public int getWins() {
