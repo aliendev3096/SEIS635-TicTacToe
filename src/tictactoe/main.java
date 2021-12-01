@@ -6,6 +6,7 @@ public class main {
 	private static Player playerX;
 	private static Player playerO;
 	private static Board board;
+	private static ScoreBoard scoreBoard;
 	private static Random rand = new Random();
 
 	public static void main(String[] args) {
@@ -15,6 +16,7 @@ public class main {
 		playerX = new Player(PlayerType.X);
 		playerO = new Player(PlayerType.O);
 
+		scoreBoard = new ScoreBoard(playerX, playerO);
 		while(startNewGame) {
 			board = new Board();
 			board.RenderBoard();
@@ -22,6 +24,7 @@ public class main {
 
 			PromptName(in, playerX);
 			PromptName(in, playerO);
+
 
 			var isTurnX = false;
 			while (!board.IsFinished()) {
@@ -46,6 +49,7 @@ public class main {
 				isTurnX = !isTurnX;
 
 				DisplayPlayers(in, playerX, playerO);
+				scoreBoard.Display();
 				board.RenderBoard();
 				board.CheckWinner();
 				if(board.IsFinished())
@@ -62,8 +66,8 @@ public class main {
 				}
 			}
 
-			startNewGame = PromptNewGame(in);
 
+			startNewGame = PromptNewGame(in);
 		}
 	}
 
