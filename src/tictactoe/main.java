@@ -44,6 +44,8 @@ public class main {
 					}
 				}
 				isTurnX = !isTurnX;
+
+				DisplayPlayers(in, playerX, playerO);
 				board.RenderBoard();
 				board.CheckWinner();
 				if(board.IsFinished())
@@ -70,6 +72,11 @@ public class main {
 		System.out.println(String.format("WINNER! CONGRADULATIONS %s!", winner.getName()));
 		winner.setWins(winner.getWins() + 1);
 		loser.setLoss(loser.getLoss() + 1);
+	}
+
+	private static void DisplayPlayers(Scanner inputStream, Player playerX, Player playerO)
+	{
+		System.out.println(String.format("Tic Tac Toe: %s vs %s", playerX.getName(), playerO.getName()));
 	}
 
 	private static void PromptName(Scanner inputStream, Player player)
