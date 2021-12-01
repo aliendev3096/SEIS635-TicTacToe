@@ -23,8 +23,8 @@ public class main {
 			PromptName(in, playerX);
 			PromptName(in, playerO);
 
+			var isTurnX = false;
 			while (!board.IsFinished()) {
-				var isTurnX = false;
 				if(board.IsStarted())
 				{
 					isTurnX = turnOrder == 0;
@@ -45,7 +45,19 @@ public class main {
 				}
 				isTurnX = !isTurnX;
 				board.RenderBoard();
-				// Determine Winner Here
+				board.CheckWinner();
+				if(board.IsFinished())
+				{
+					String winner = board.getWinner();
+					if(winner == "X")
+					{
+						AwardWinner(in, playerX, playerO);
+					}
+					else if(winner == "O")
+					{
+						AwardWinner(in, playerO, playerX);
+					}
+				}
 			}
 
 			startNewGame = PromptNewGame(in);
@@ -53,14 +65,21 @@ public class main {
 		}
 	}
 
-	public static void PromptName(Scanner inputStream, Player player)
+	private static void AwardWinner(Scanner inputStream, Player winner, Player loser)
+	{
+		System.out.println(String.format("WINNER! CONGRADULATIONS %s!", winner.getName()));
+		winner.setWins(winner.getWins() + 1);
+		loser.setLoss(loser.getLoss() + 1);
+	}
+
+	private static void PromptName(Scanner inputStream, Player player)
 	{
 		System.out.println(String.format("Ready Player %s? Please enter your name!", player.getType()));
 		var name = inputStream.nextLine();
 		player.setName(name);
 	}
 
-	public static boolean PromptNewGame(Scanner inputStream)
+	private static boolean PromptNewGame(Scanner inputStream)
 	{
 		System.out.println("Player Another Game? (Y/N)");
 		String response = inputStream.nextLine();
