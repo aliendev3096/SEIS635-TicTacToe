@@ -5,7 +5,6 @@ import java.util.*;
 public class main {
 	private static Player playerX;
 	private static Player playerO;
-	private static Board board;
 	private static ScoreBoard scoreBoard;
 	private static Random rand = new Random();
 
@@ -16,50 +15,47 @@ public class main {
 		playerX = new Player(PlayerType.X);
 		playerO = new Player(PlayerType.O);
 
+		PromptName(in, playerX);
+		PromptName(in, playerO);
 		scoreBoard = new ScoreBoard(playerX, playerO);
+
 		while(startNewGame) {
-			board = new Board();
-			board.RenderBoard();
+			Game game = new Game(playerX, playerO);
 			int turnOrder = rand.nextInt(2);
 
-			PromptName(in, playerX);
-			PromptName(in, playerO);
-
-
 			var isTurnX = false;
-			while (!board.IsFinished()) {
-				if(board.IsStarted())
+			while (!game.IsFinished()) {
+				if(game.IsStarted())
 				{
 					isTurnX = turnOrder == 0;
 					var mark = isTurnX ? "X" : "O";
 					var cell = isTurnX? playerX.MakeMove(in) : playerO.MakeMove(in);
 
-					board.UpdateBoard(mark, cell);
-					board.SetBoardStatus(BoardStatus.IN_PROGRESS);
+					game.UpdateMove(mark, cell);
 				}
 				else {
 					if (isTurnX) {
 						var cell = playerX.MakeMove(in);
-						board.UpdateBoard("X", cell);
+						game.UpdateMove("X", cell);
 					} else {
 						var cell = playerO.MakeMove(in);
-						board.UpdateBoard("O", cell);
+						game.UpdateMove("O", cell);
 					}
 				}
 				isTurnX = !isTurnX;
 
-				DisplayPlayers(in, playerX, playerO);
+				scoreBoard.DisplayPlayers();
 				scoreBoard.Display();
-				board.RenderBoard();
-				board.CheckWinner();
-				if(board.IsFinished())
+				game.DisplayBoard();
+				game.CheckWinner();
+				if(game.IsFinished())
 				{
-					String winner = board.getWinner();
-					if(winner == "X")
+					String winnerName = game.getWinner().getName();
+					if(winnerName == playerX.getName())
 					{
 						AwardWinner(in, playerX, playerO);
 					}
-					else if(winner == "O")
+					else if(winnerName == playerO.getName())
 					{
 						AwardWinner(in, playerO, playerX);
 					}
@@ -73,14 +69,9 @@ public class main {
 
 	private static void AwardWinner(Scanner inputStream, Player winner, Player loser)
 	{
-		System.out.println(String.format("WINNER! CONGRADULATIONS %s!", winner.getName()));
+		System.out.println(String.format("WINNER! Congratulations %s!", winner.getName()));
 		winner.setWins(winner.getWins() + 1);
 		loser.setLoss(loser.getLoss() + 1);
-	}
-
-	private static void DisplayPlayers(Scanner inputStream, Player playerX, Player playerO)
-	{
-		System.out.println(String.format("Tic Tac Toe: %s vs %s", playerX.getName(), playerO.getName()));
 	}
 
 	private static void PromptName(Scanner inputStream, Player player)

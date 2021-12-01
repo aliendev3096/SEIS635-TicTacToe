@@ -1,7 +1,6 @@
 package tictactoe;
 
-public enum BoardStatus {
+public enum GameStatus {
     STARTED,
-    IN_PROGRESS,
     FINISHED
 }
