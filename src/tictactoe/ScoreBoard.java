@@ -49,4 +49,12 @@ public class ScoreBoard {
             }
         }
     }
+
+    public String getStreakHolder() {
+        return streakHolder;
+    }
+
+    public int getStreakCount() {
+        return streakCount;
+    }
 }
