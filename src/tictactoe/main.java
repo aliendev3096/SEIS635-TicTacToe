@@ -12,43 +12,53 @@ public class main {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Welcome to Tic Tac Toe!");
 		boolean startNewGame = true;
-		playerX = new Player(PlayerType.X);
-		playerO = new Player(PlayerType.O);
-
-		PromptName(in, playerX);
-		PromptName(in, playerO);
-		scoreBoard = new ScoreBoard(playerX, playerO);
 
 		while(startNewGame) {
+			if(playerX == null) {
+				playerX = new Player(PlayerType.X);
+			}
+			if(playerO == null) {
+				playerO = new Player(PlayerType.O);
+			}
+
+			scoreBoard = new ScoreBoard(playerX, playerO);
 			Game game = new Game(playerX, playerO);
+
+			game.promptMode(in);
+
+			playerX.promptName(in);
+			playerO.promptName(in);
 			int turnOrder = rand.nextInt(2);
 
 			var isTurnX = false;
-			while (!game.IsFinished()) {
-				if(game.IsStarted())
+			game.setGameStatus(GameStatus.STARTED);
+			while (!game.isFinished()) {
+				if(game.isStarted())
 				{
 					isTurnX = turnOrder == 0;
 					var mark = isTurnX ? "X" : "O";
-					var cell = isTurnX? playerX.MakeMove(in) : playerO.MakeMove(in);
+					var cell = isTurnX ? game.makePlayerXMove(in) : game.makePlayerOMove(in);
 
-					game.UpdateMove(mark, cell);
+					game.updateMove(mark, cell);
+					game.setGameStatus(GameStatus.INPROGRESS);
 				}
 				else {
 					if (isTurnX) {
-						var cell = playerX.MakeMove(in);
-						game.UpdateMove("X", cell);
+						var cell = game.makePlayerXMove(in);
+						game.updateMove("X", cell);
 					} else {
-						var cell = playerO.MakeMove(in);
-						game.UpdateMove("O", cell);
+						var cell = game.makePlayerOMove(in);
+						game.updateMove("O", cell);
 					}
 				}
 				isTurnX = !isTurnX;
 
 				scoreBoard.DisplayPlayers();
 				scoreBoard.Display();
-				game.DisplayBoard();
-				game.CheckWinner();
-				if(game.IsFinished())
+				game.displayBoard();
+				game.checkWinner();
+				//todo: Check for Ties
+				if(game.isFinished())
 				{
 					String winnerName = game.getWinner().getName();
 					if(winnerName == playerX.getName())
@@ -74,18 +84,12 @@ public class main {
 		loser.setLoss(loser.getLoss() + 1);
 	}
 
-	private static void PromptName(Scanner inputStream, Player player)
-	{
-		System.out.println(String.format("Ready Player %s? Please enter your name!", player.getType()));
-		var name = inputStream.nextLine();
-		player.setName(name);
-	}
 
 	private static boolean PromptNewGame(Scanner inputStream)
 	{
 		System.out.println("Player Another Game? (Y/N)");
 		String response = inputStream.nextLine();
 
-		return response == "Y" ? true : false;
+		return response.equals("Y") ? true : false;
 	}
 }

@@ -20,6 +20,6 @@ public class ScoreBoard {
 
     public void DisplayPlayers()
     {
-        System.out.println(String.format("Tic Tac Toe: %s vs %s", this.playerX.getName(), this.playerO.getName()));
+        System.out.println(String.format("Tic Tac Toe: %s(%s) vs %s(%s)", this.playerX.getName(), this.playerX.getType(), this.playerO.getName(), this.playerO.getType()));
     }
 }

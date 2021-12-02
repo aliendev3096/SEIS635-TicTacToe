@@ -1,2 +1,6 @@
-package tictactoe;public class GameMode {
+package tictactoe;
+
+public enum GameMode {
+    PvP,
+    PvC
 }

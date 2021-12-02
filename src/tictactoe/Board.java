@@ -1,5 +1,7 @@
 package tictactoe;
 
+import java.util.ArrayList;
+
 public class Board {
 
     private String[] state;
@@ -90,6 +92,20 @@ public class Board {
         return false;
     }
 
+    public ArrayList<Integer> getEmptyCells()
+    {
+        ArrayList<Integer> cells = new ArrayList<Integer>();
+
+        for (int x = 0; x < this.state.length; x++)
+        {
+            if(this.state[x] == null)
+            {
+                cells.add(x + 1);
+            }
+        }
+
+        return cells;
+    }
     private String GetCellState(int stateCell)
     {
         return this.state[stateCell] != null ? state[stateCell] : " ";

@@ -1,2 +1,6 @@
-package tictactoe;public class PlayerMode {
+package tictactoe;
+
+public enum PlayerMode {
+    Human,
+    Cpu
 }
