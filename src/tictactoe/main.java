@@ -65,8 +65,8 @@ public class main {
 					scoreBoard.updateStreak(winnerName);
 				}
 
-				scoreBoard.DisplayPlayers();
-				scoreBoard.Display();
+				scoreBoard.displayPlayers();
+				scoreBoard.display();
 			}
 
 

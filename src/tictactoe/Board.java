@@ -10,18 +10,18 @@ public class Board {
         this.state = new String[] { null, null, null, null, null, null, null, null, null };
     }
 
-    public void UpdateBoard(String mark, int cell)
+    public void updateBoard(String mark, int cell)
     {
         this.state[cell - 1] = mark;
     }
 
-    public void RenderBoard()
+    public void renderBoard()
     {
-        var board = BuildBoard();
+        var board = buildBoard();
         System.out.println(board);
     }
 
-    public String BuildBoard()
+    public String buildBoard()
     {
 
         String stateLine = " %s | %s | %s \n";
@@ -29,16 +29,16 @@ public class Board {
 
         StringBuilder builder = new StringBuilder();
 
-        builder.append(String.format(stateLine, GetCellState(0), GetCellState(1), GetCellState(2)));
+        builder.append(String.format(stateLine, getCellState(0), getCellState(1), getCellState(2)));
         builder.append(borderLine);
-        builder.append(String.format(stateLine, GetCellState(3), GetCellState(4), GetCellState(5)));
+        builder.append(String.format(stateLine, getCellState(3), getCellState(4), getCellState(5)));
         builder.append(borderLine);
-        builder.append(String.format(stateLine, GetCellState(6), GetCellState(7), GetCellState(8)));
+        builder.append(String.format(stateLine, getCellState(6), getCellState(7), getCellState(8)));
 
         return builder.toString();
     }
 
-    public boolean CheckWinnerX()
+    public boolean checkWinnerX()
     {
         if((this.state[0] == "X" && this.state[1] == "X" && this.state[2] == "X") ||
             (this.state[3] == "X" && this.state[4] == "X" && this.state[5] == "X") ||
@@ -65,7 +65,7 @@ public class Board {
         return false;
     }
 
-    public boolean CheckWinnerO()
+    public boolean checkWinnerO()
     {
         if((this.state[0] == "O" && this.state[1] == "O" && this.state[2] == "O") ||
                 (this.state[3] == "O" && this.state[4] == "O" && this.state[5] == "O") ||
@@ -106,7 +106,7 @@ public class Board {
 
         return cells;
     }
-    private String GetCellState(int stateCell)
+    private String getCellState(int stateCell)
     {
         return this.state[stateCell] != null ? state[stateCell] : " ";
     }

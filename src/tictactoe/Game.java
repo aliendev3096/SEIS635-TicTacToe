@@ -29,12 +29,12 @@ public class Game {
 
     public void checkWinner()
     {
-        if(board.CheckWinnerX())
+        if(board.checkWinnerX())
         {
             this.winner = playerX;
             this.status = GameStatus.FINISHED;
         }
-        else if(board.CheckWinnerO())
+        else if(board.checkWinnerO())
         {
             this.winner = playerO;
             this.status = GameStatus.FINISHED;
@@ -43,11 +43,11 @@ public class Game {
 
     public void displayBoard()
     {
-        this.board.RenderBoard();
+        this.board.renderBoard();
     }
     public void updateMove(String mark, int cell)
     {
-        this.board.UpdateBoard(mark, cell);
+        this.board.updateBoard(mark, cell);
     }
     public void setGameStatus(GameStatus status)
     {

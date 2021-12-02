@@ -14,7 +14,7 @@ public class ScoreBoard {
         this.playerX = playerX;
     }
 
-    public void Display()
+    public void display()
     {
         System.out.println(String.format("%s's Record: %s-%s-%s", playerX.getName(), playerX.getWins(), playerX.getLoss(), playerX.getTies()));
         System.out.println(String.format("%s's Record: %s-%s-%s", playerO.getName(), playerO.getWins(), playerO.getLoss(), playerO.getTies()));
@@ -26,7 +26,7 @@ public class ScoreBoard {
         }
     }
 
-    public void DisplayPlayers()
+    public void displayPlayers()
     {
         System.out.println(String.format("Tic Tac Toe: %s(%s) vs %s(%s)", this.playerX.getName(), this.playerX.getType(), this.playerO.getName(), this.playerO.getType()));
     }
