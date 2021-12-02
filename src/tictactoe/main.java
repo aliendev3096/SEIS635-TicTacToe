@@ -3,64 +3,56 @@ package tictactoe;
 import java.util.*;
 
 public class main {
-	private static Player playerX;
-	private static Player playerO;
-	private static ScoreBoard scoreBoard;
+	private static Player playerX = new Player(PlayerType.X);
+	private static Player playerO = new Player(PlayerType.O);
+	private static ScoreBoard scoreBoard = new ScoreBoard(playerX, playerO);
 	private static Random rand = new Random();
+	private static Game currentGame;
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Welcome to Tic Tac Toe!");
 		boolean startNewGame = true;
 
+		playerX.promptName(in);
+		playerO.promptName(in);
+
+		currentGame = new Game(playerX, playerO);
+		currentGame.promptMode(in);
+
 		while(startNewGame) {
-			if(playerX == null) {
-				playerX = new Player(PlayerType.X);
-			}
-			if(playerO == null) {
-				playerO = new Player(PlayerType.O);
-			}
-
-			scoreBoard = new ScoreBoard(playerX, playerO);
-			Game game = new Game(playerX, playerO);
-
-			game.promptMode(in);
-
-			playerX.promptName(in);
-			playerO.promptName(in);
+			currentGame = new Game(playerX, playerO);
 			int turnOrder = rand.nextInt(2);
 
 			var isTurnX = false;
-			game.setGameStatus(GameStatus.STARTED);
-			while (!game.isFinished()) {
-				if(game.isStarted())
+			currentGame.setGameStatus(GameStatus.STARTED);
+			while (!currentGame.isFinished()) {
+				if(currentGame.isStarted())
 				{
 					isTurnX = turnOrder == 0;
 					var mark = isTurnX ? "X" : "O";
-					var cell = isTurnX ? game.makePlayerXMove(in) : game.makePlayerOMove(in);
+					var cell = isTurnX ? currentGame.makePlayerXMove(in) : currentGame.makePlayerOMove(in);
 
-					game.updateMove(mark, cell);
-					game.setGameStatus(GameStatus.INPROGRESS);
+					currentGame.updateMove(mark, cell);
+					currentGame.setGameStatus(GameStatus.INPROGRESS);
 				}
 				else {
 					if (isTurnX) {
-						var cell = game.makePlayerXMove(in);
-						game.updateMove("X", cell);
+						var cell = currentGame.makePlayerXMove(in);
+						currentGame.updateMove("X", cell);
 					} else {
-						var cell = game.makePlayerOMove(in);
-						game.updateMove("O", cell);
+						var cell = currentGame.makePlayerOMove(in);
+						currentGame.updateMove("O", cell);
 					}
 				}
 				isTurnX = !isTurnX;
 
-				scoreBoard.DisplayPlayers();
-				scoreBoard.Display();
-				game.displayBoard();
-				game.checkWinner();
+				currentGame.displayBoard();
+				currentGame.checkWinner();
 				//todo: Check for Ties
-				if(game.isFinished())
+				if(currentGame.isFinished())
 				{
-					String winnerName = game.getWinner().getName();
+					String winnerName = currentGame.getWinner().getName();
 					if(winnerName == playerX.getName())
 					{
 						AwardWinner(in, playerX, playerO);
@@ -69,7 +61,12 @@ public class main {
 					{
 						AwardWinner(in, playerO, playerX);
 					}
+
+					scoreBoard.updateStreak(winnerName);
 				}
+
+				scoreBoard.DisplayPlayers();
+				scoreBoard.Display();
 			}
 
 
