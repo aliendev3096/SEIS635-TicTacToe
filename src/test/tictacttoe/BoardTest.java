@@ -5,24 +5,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tictactoe.Board;
-import tictactoe.Player;
-import tictactoe.PlayerMode;
-import tictactoe.PlayerType;
-
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BoardTest {
     private Board board;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream outStream = System.out;
-    private final InputStream sysInBackup = System.in;
-    private  ByteArrayInputStream in;
-
 
     public BoardTest()
     {
@@ -71,5 +61,211 @@ public class BoardTest {
         ArrayList<Integer> result = board.getEmptyCells();
 
         Assert.assertArrayEquals(result.toArray(), expected.toArray());
+    }
+
+    @Test
+    public void RenderBoard_Test()
+    {
+        String[] initialState = new String[] { "X", "O", "X", "X", null, null, null, null, null };
+
+        board.setState(initialState);
+
+        board.renderBoard();
+
+        String expectedBoard = " X | O | X \n---|---|---\n X |   |   \n---|---|---\n   |   |   \n\n";
+
+        Assert.assertEquals(expectedBoard, outContent.toString());
+    }
+
+    @Test
+    public void CheckWinnerX_ColumnOne_Test()
+    {
+        String[] initialState = new String[] { "X", "O", "X", "X", null, null, "X", null, null };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerX();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerX_ColumnTwo_Test()
+    {
+        String[] initialState = new String[] { null, "X", "O", "O", "X", null, "O", "X", null };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerX();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerX_ColumnThree_Test()
+    {
+        String[] initialState = new String[] { null, "O", "X", "O", "X", "X", "O", "O", "X" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerX();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerX_DiagonalOne_Test()
+    {
+        String[] initialState = new String[] { "X", "O", "O", "O", "X", null, "O", null, "X" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerX();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerX_DiagonalTwo_Test()
+    {
+        String[] initialState = new String[] { "O", "O", "X", "O", "X", null, "X", null, "O" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerX();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerX_RowOne_Test()
+    {
+        String[] initialState = new String[] { "X", "X", "X", "O", "O", null, "X", null, "O" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerX();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerX_RowTwo_Test()
+    {
+        String[] initialState = new String[] { "O", "X", "O", "X", "X", "X", "X", null, "O" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerX();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerX_RowThree_Test()
+    {
+        String[] initialState = new String[] { "X", "O", "O", "X", "X", null, "X", "X", "X" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerX();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerO_ColumnOne_Test()
+    {
+        String[] initialState = new String[] { "O", "X", "X", "O", null, null, "O", null, null };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerO();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerO_ColumnTwo_Test()
+    {
+        String[] initialState = new String[] { null, "O", "X", "X", "O", "X", "X", "O", null };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerO();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerO_ColumnThree_Test()
+    {
+        String[] initialState = new String[] { null, "X", "O", "X", "X", "O", "X", "X", "O" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerO();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerO_DiagonalOne_Test()
+    {
+        String[] initialState = new String[] { "O", "X", "X", "X", "O", null, "X", null, "O" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerO();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerO_DiagonalTwo_Test()
+    {
+        String[] initialState = new String[] { "X", "X", "O", "X", "O", null, "O", null, "X" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerO();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerO_RowOne_Test()
+    {
+        String[] initialState = new String[] { "O", "O", "O", "X", "X", null, "X", null, "O" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerO();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerO_RowTwo_Test()
+    {
+        String[] initialState = new String[] { "O", "X", "O", "O", "O", "O", "X", null, "O" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerO();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
+    public void CheckWinnerO_RowThree_Test()
+    {
+        String[] initialState = new String[] { "X", "O", "X", "X", "X", null, "O", "O", "O" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkWinnerO();
+
+        Assert.assertEquals(result, true);
     }
 }
