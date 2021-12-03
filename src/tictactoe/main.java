@@ -3,80 +3,93 @@ package tictactoe;
 import java.util.*;
 
 public class main {
-	private static Player playerX;
-	private static Player playerO;
-	private static Board board;
+	private static Player playerX = new Player(PlayerType.X);
+	private static Player playerO = new Player(PlayerType.O);
+	private static ScoreBoard scoreBoard = new ScoreBoard(playerX, playerO);
 	private static Random rand = new Random();
+	private static Game currentGame;
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Welcome to Tic Tac Toe!");
 		boolean startNewGame = true;
-		playerX = new Player(PlayerType.X);
-		playerO = new Player(PlayerType.O);
+
+		playerX.promptName(in);
+		playerO.promptName(in);
+
+		currentGame = new Game(playerX, playerO);
+		currentGame.promptMode(in);
 
 		while(startNewGame) {
-			board = new Board();
-			board.RenderBoard();
+			currentGame = new Game(playerX, playerO);
 			int turnOrder = rand.nextInt(2);
 
-			PromptName(in, playerX);
-			PromptName(in, playerO);
-
 			var isTurnX = false;
-			while (!board.IsFinished()) {
-				if(board.IsStarted())
+			currentGame.setGameStatus(GameStatus.STARTED);
+			while (!currentGame.isFinished()) {
+				if(currentGame.isStarted())
 				{
 					isTurnX = turnOrder == 0;
 					var mark = isTurnX ? "X" : "O";
-					var cell = isTurnX? playerX.MakeMove(in) : playerO.MakeMove(in);
+					var cell = isTurnX ? currentGame.makePlayerXMove(in) : currentGame.makePlayerOMove(in);
 
-					board.UpdateBoard(mark, cell);
-					board.SetBoardStatus(BoardStatus.IN_PROGRESS);
+					currentGame.updateMove(mark, cell);
+					currentGame.setGameStatus(GameStatus.INPROGRESS);
 				}
 				else {
 					if (isTurnX) {
-						var cell = playerX.MakeMove(in);
-						board.UpdateBoard("X", cell);
+						var cell = currentGame.makePlayerXMove(in);
+						currentGame.updateMove("X", cell);
 					} else {
-						var cell = playerO.MakeMove(in);
-						board.UpdateBoard("O", cell);
+						var cell = currentGame.makePlayerOMove(in);
+						currentGame.updateMove("O", cell);
 					}
 				}
 				isTurnX = !isTurnX;
-				board.RenderBoard();
-				board.CheckWinner();
-				if(board.IsFinished())
+
+				currentGame.displayBoard();
+				currentGame.checkWinner();
+
+				if(currentGame.isFinished())
 				{
-					String winner = board.getWinner();
-					if(winner == "X")
-					{
-						AwardWinner(in, playerX, playerO);
+					if(!currentGame.isTie()) {
+						String winnerName = currentGame.getWinner().getName();
+						if (winnerName == playerX.getName()) {
+							AwardWinner(in, playerX, playerO);
+						} else if (winnerName == playerO.getName()) {
+							AwardWinner(in, playerO, playerX);
+						}
+
+						scoreBoard.updateStreak(winnerName);
 					}
-					else if(winner == "O")
+					else
 					{
-						AwardWinner(in, playerO, playerX);
+						AlertTie(playerX, playerO);
+						scoreBoard.clearStreak();
 					}
 				}
+
+				scoreBoard.displayPlayers();
+				scoreBoard.display();
 			}
 
-			startNewGame = PromptNewGame(in);
 
+			startNewGame = PromptNewGame(in);
 		}
 	}
 
 	private static void AwardWinner(Scanner inputStream, Player winner, Player loser)
 	{
-		System.out.println(String.format("WINNER! CONGRADULATIONS %s!", winner.getName()));
+		System.out.println(String.format("WINNER! Congratulations %s!", winner.getName()));
 		winner.setWins(winner.getWins() + 1);
 		loser.setLoss(loser.getLoss() + 1);
 	}
 
-	private static void PromptName(Scanner inputStream, Player player)
+	private static void AlertTie(Player x, Player o)
 	{
-		System.out.println(String.format("Ready Player %s? Please enter your name!", player.getType()));
-		var name = inputStream.nextLine();
-		player.setName(name);
+		System.out.println("Tie Game!");
+		x.setTies(x.getTies() + 1);
+		o.setTies(o.getTies() + 1);
 	}
 
 	private static boolean PromptNewGame(Scanner inputStream)
@@ -84,6 +97,6 @@ public class main {
 		System.out.println("Player Another Game? (Y/N)");
 		String response = inputStream.nextLine();
 
-		return response == "Y" ? true : false;
+		return response.equals("Y") ? true : false;
 	}
 }
