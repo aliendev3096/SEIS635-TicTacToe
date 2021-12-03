@@ -49,20 +49,24 @@ public class main {
 
 				currentGame.displayBoard();
 				currentGame.checkWinner();
-				//todo: Check for Ties
+
 				if(currentGame.isFinished())
 				{
-					String winnerName = currentGame.getWinner().getName();
-					if(winnerName == playerX.getName())
-					{
-						AwardWinner(in, playerX, playerO);
-					}
-					else if(winnerName == playerO.getName())
-					{
-						AwardWinner(in, playerO, playerX);
-					}
+					if(!currentGame.isTie()) {
+						String winnerName = currentGame.getWinner().getName();
+						if (winnerName == playerX.getName()) {
+							AwardWinner(in, playerX, playerO);
+						} else if (winnerName == playerO.getName()) {
+							AwardWinner(in, playerO, playerX);
+						}
 
-					scoreBoard.updateStreak(winnerName);
+						scoreBoard.updateStreak(winnerName);
+					}
+					else
+					{
+						AlertTie(playerX, playerO);
+						scoreBoard.clearStreak();
+					}
 				}
 
 				scoreBoard.displayPlayers();
@@ -81,6 +85,12 @@ public class main {
 		loser.setLoss(loser.getLoss() + 1);
 	}
 
+	private static void AlertTie(Player x, Player o)
+	{
+		System.out.println("Tie Game!");
+		x.setTies(x.getTies() + 1);
+		o.setTies(o.getTies() + 1);
+	}
 
 	private static boolean PromptNewGame(Scanner inputStream)
 	{

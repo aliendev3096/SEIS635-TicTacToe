@@ -10,6 +10,7 @@ public class Game {
     private GameStatus status;
     private Player winner;
     private GameMode mode;
+    private boolean isTie;
 
     private final Random rand = new Random();
     public boolean isFinished() {
@@ -40,12 +41,24 @@ public class Game {
         {
             this.winner = playerX;
             this.status = GameStatus.FINISHED;
+            this.isTie = false;
         }
         else if(board.checkWinnerO())
         {
             this.winner = playerO;
             this.status = GameStatus.FINISHED;
+            this.isTie = false;
         }
+        else if(board.checkTie())
+        {
+            this.winner = null;
+            this.status = GameStatus.FINISHED;
+            this.isTie = true;
+        }
+    }
+
+    public boolean isTie() {
+        return isTie;
     }
 
     public GameMode getMode() {

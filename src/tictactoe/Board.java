@@ -1,6 +1,7 @@
 package tictactoe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Board {
 
@@ -53,6 +54,15 @@ public class Board {
             return true;
         }
 
+        return false;
+    }
+
+    public boolean checkTie()
+    {
+        if(!this.checkWinnerX() && !this.checkWinnerO() && !Arrays.asList(this.state).contains(null))
+        {
+            return true;
+        }
         return false;
     }
 

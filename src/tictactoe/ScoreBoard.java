@@ -50,6 +50,12 @@ public class ScoreBoard {
         }
     }
 
+    public void clearStreak()
+    {
+        this.streakHolder = null;
+        this.streakCount = 0;
+    }
+
     public String getStreakHolder() {
         return streakHolder;
     }
