@@ -15,27 +15,18 @@ public class Board {
         this.state[cell - 1] = mark;
     }
 
+    public String[] getState() {
+        return state;
+    }
+
+    public void setState(String[] state) {
+        this.state = state;
+    }
+
     public void renderBoard()
     {
         var board = buildBoard();
         System.out.println(board);
-    }
-
-    public String buildBoard()
-    {
-
-        String stateLine = " %s | %s | %s \n";
-        String borderLine = "---|---|---\n";
-
-        StringBuilder builder = new StringBuilder();
-
-        builder.append(String.format(stateLine, getCellState(0), getCellState(1), getCellState(2)));
-        builder.append(borderLine);
-        builder.append(String.format(stateLine, getCellState(3), getCellState(4), getCellState(5)));
-        builder.append(borderLine);
-        builder.append(String.format(stateLine, getCellState(6), getCellState(7), getCellState(8)));
-
-        return builder.toString();
     }
 
     public boolean checkWinnerX()
@@ -106,6 +97,24 @@ public class Board {
 
         return cells;
     }
+
+    private String buildBoard()
+    {
+
+        String stateLine = " %s | %s | %s \n";
+        String borderLine = "---|---|---\n";
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(String.format(stateLine, getCellState(0), getCellState(1), getCellState(2)));
+        builder.append(borderLine);
+        builder.append(String.format(stateLine, getCellState(3), getCellState(4), getCellState(5)));
+        builder.append(borderLine);
+        builder.append(String.format(stateLine, getCellState(6), getCellState(7), getCellState(8)));
+
+        return builder.toString();
+    }
+
     private String getCellState(int stateCell)
     {
         return this.state[stateCell] != null ? state[stateCell] : " ";

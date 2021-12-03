@@ -15,9 +15,7 @@ public class ScoreBoardTest {
     private Player o;
     private ScoreBoard scoreBoard;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream outStream = System.out;
-    private final PrintStream errStream = System.err;
 
     public ScoreBoardTest()
     {
@@ -29,13 +27,11 @@ public class ScoreBoardTest {
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
     }
 
     @After
     public void restoreStreams() {
         System.setOut(outStream);
-        System.setErr(errStream);
     }
 
     @Test
