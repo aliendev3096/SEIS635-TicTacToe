@@ -27,6 +27,13 @@ public class Game {
         this.board = new Board();
     }
 
+    public Game(Player playerX, Player playerO, Board board)
+    {
+        this.playerX = playerX;
+        this.playerO = playerO;
+        this.board = board;
+    }
+
     public void checkWinner()
     {
         if(board.checkWinnerX())
@@ -41,6 +48,10 @@ public class Game {
         }
     }
 
+    public GameMode getMode() {
+        return mode;
+    }
+
     public void displayBoard()
     {
         this.board.renderBoard();
@@ -49,6 +60,11 @@ public class Game {
     {
         this.board.updateBoard(mark, cell);
     }
+
+    public GameStatus getStatus() {
+        return status;
+    }
+
     public void setGameStatus(GameStatus status)
     {
         this.status = status;

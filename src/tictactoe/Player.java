@@ -19,6 +19,14 @@ public class Player {
         this.rand = new Random();
     }
 
+    public PlayerMode getMode() {
+        return mode;
+    }
+
+    public Random getRand() {
+        return rand;
+    }
+
     public void setMode(PlayerMode mode) {
         this.mode = mode;
     }

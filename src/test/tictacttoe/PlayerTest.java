@@ -19,8 +19,7 @@ public class PlayerTest {
     private Player player;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream outStream = System.out;
-    private final InputStream sysInBackup = System.in;
-    private  ByteArrayInputStream in;
+    private ByteArrayInputStream in;
 
 
     public PlayerTest()
@@ -41,7 +40,7 @@ public class PlayerTest {
     @Test
     public void MakeMove_Human_Test()
     {
-        // Set Naame aand PlayerMode as Human
+        // Set Name and PlayerMode as Human
         player.setName("TestUser");
         player.setMode(PlayerMode.Human);
 
