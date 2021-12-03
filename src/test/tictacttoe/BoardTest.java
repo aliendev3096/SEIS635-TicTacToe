@@ -78,6 +78,18 @@ public class BoardTest {
     }
 
     @Test
+    public void CheckTies_Test()
+    {
+        String[] initialState = new String[] { "X", "O", "X", "O", "X", "O", "O", "X", "O" };
+
+        board.setState(initialState);
+
+        boolean result = board.checkTie();
+
+        Assert.assertEquals(result, true);
+    }
+
+    @Test
     public void CheckWinnerX_ColumnOne_Test()
     {
         String[] initialState = new String[] { "X", "O", "X", "X", null, null, "X", null, null };
