@@ -39,10 +39,22 @@ public class main {
 				else {
 					if (isTurnX) {
 						var cell = currentGame.makePlayerXMove(in);
-						currentGame.updateMove("X", cell);
+						boolean	validmove = currentGame.updateMove("X", cell);
+						while (!validmove)
+						{
+							System.out.println(String.format("Invalid Move - please try again."));
+							cell = currentGame.makePlayerXMove(in); 
+							validmove = currentGame.updateMove("X", cell);
+						}
 					} else {
 						var cell = currentGame.makePlayerOMove(in);
-						currentGame.updateMove("O", cell);
+						boolean	validmove = currentGame.updateMove("O", cell);
+						while (!validmove)
+						{
+							System.out.println(String.format("Invalid Move - please try again."));
+							cell = currentGame.makePlayerXMove(in); 
+							validmove = currentGame.updateMove("O", cell);
+						}
 					}
 				}
 				isTurnX = !isTurnX;

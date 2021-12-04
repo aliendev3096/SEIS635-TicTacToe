@@ -11,10 +11,16 @@ public class Board {
         this.state = new String[] { null, null, null, null, null, null, null, null, null };
     }
 
-    public void updateBoard(String mark, int cell)
+    public boolean updateBoard(String mark, int cell)
     {
-        this.state[cell - 1] = mark;
+    	if(this.state[cell-1] != null)
+		{
+   			return false;
+		}
+    	this.state[cell-1] = mark;
+    	return true;
     }
+
 
     public String[] getState() {
         return state;

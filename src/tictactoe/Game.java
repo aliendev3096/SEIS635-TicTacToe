@@ -69,9 +69,9 @@ public class Game {
     {
         this.board.renderBoard();
     }
-    public void updateMove(String mark, int cell)
+    public boolean updateMove(String mark, int cell)
     {
-        this.board.updateBoard(mark, cell);
+	Return this.board.updateBoard(mark, cell);
     }
 
     public GameStatus getStatus() {
@@ -113,3 +113,4 @@ public class Game {
         return this.playerO.makeMove(in, this.board.getEmptyCells());
     }
 }
+
