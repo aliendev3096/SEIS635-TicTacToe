@@ -14,11 +14,14 @@ public class main {
 		System.out.println("Welcome to Tic Tac Toe!");
 		boolean startNewGame = true;
 
-		playerX.promptName(in);
-		playerO.promptName(in);
-
 		currentGame = new Game(playerX, playerO);
 		currentGame.promptMode(in);
+
+		playerX.promptName(in);
+
+		if(currentGame.getMode() == GameMode.PvP) {
+			playerO.promptName(in);
+		}
 
 		while(startNewGame) {
 			currentGame = new Game(playerX, playerO);
