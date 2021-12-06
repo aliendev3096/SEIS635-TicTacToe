@@ -85,8 +85,8 @@ public class Game {
 
     public void promptMode(Scanner inputStream)
         {
-            System.out.println("Select Game Mode: \n");
-            System.out.println("Player vs Player: Enter '1' or player 1 you will play the CPU. \n");
+            System.out.println("\nSelect Game Mode:");
+            System.out.println("Player vs. CPU - press Enter \nPlayer vs. Player mode - press '1' & Enter \n");
 
             String modeInput = inputStream.nextLine();
 

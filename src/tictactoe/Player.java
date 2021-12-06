@@ -68,18 +68,18 @@ public class Player {
     }
 
  
-    public int makeMove(Scanner inputStream, ArrayList<Integer> emptyCells)
-    {
-        if(this.mode != PlayerMode.Cpu) {
-            System.out.println(String.format("%s(%s), select the cell you want to mark! (1-9)", this.Name, this.Type));
-            var cell = inputStream.nextLine();
+   public int makeMove(Scanner inputStream, ArrayList<Integer> emptyCells)
+   {
+      if(this.mode != PlayerMode.Cpu) {
+           System.out.println(String.format("%s(%s), select the cell you want to mark! (1-9)", this.Name, this.Type));
+          var cell = inputStream.nextLine();
             return Integer.parseInt(cell);
         }
 
         int randomSlot = emptyCells.get(rand.nextInt(emptyCells.size()));
-        return randomSlot;
-    }
-
+       return randomSlot;
+   }
+    
 
 public void promptName(Scanner inputStream)
 {
