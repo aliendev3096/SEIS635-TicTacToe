@@ -104,12 +104,19 @@ public class main {
 		o.setTies(o.getTies() + 1);
 	}
 
+	
 	private static boolean PromptNewGame(Scanner inputStream)
 	{
-		System.out.println("Enter '1' to play another game?");
+		System.out.println("Enter Y or y to play another game.");
 		String response = inputStream.nextLine();
 
-		return response.equals("1");
-    
+		if(response.equals("y") || response.equals("Y")) {
+			return true;
+		}
+		else {
+			System.out.println("You quit the game.");
+			return false;
+		}
 	}
 }
+
