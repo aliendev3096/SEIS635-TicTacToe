@@ -80,12 +80,17 @@ public class Player {
         return randomSlot;
     }
 
-    public void promptName(Scanner inputStream)
-    {
-        if(this.mode != PlayerMode.Cpu) {
-        	System.out.println(String.format("Ready Player %s? Please enter your name!", this.getType()));
-        	var name = inputStream.nextLine();
-        	this.setName(name);
-       }
-   }
+
+public void promptName(Scanner inputStream)
+{
+    if(this.mode != PlayerMode.Cpu) {
+    	
+    	var name = "";
+    	while(name.isBlank()) {
+    		System.out.println(String.format("Ready Player %s? Please enter your name!", this.getType()));
+    		name = inputStream.nextLine();
+    		this.setName(name);
+    		}
+    	}
+	}
 }
