@@ -67,6 +67,7 @@ public class Player {
         Ties = ties;
     }
 
+ 
     public int makeMove(Scanner inputStream, ArrayList<Integer> emptyCells)
     {
         if(this.mode != PlayerMode.Cpu) {
@@ -82,9 +83,9 @@ public class Player {
     public void promptName(Scanner inputStream)
     {
         if(this.mode != PlayerMode.Cpu) {
-            System.out.println(String.format("Ready Player %s? Please enter your name!", this.getType()));
-            var name = inputStream.nextLine();
-            this.setName(name);
-        }
-    }
+        	System.out.println(String.format("Ready Player %s? Please enter your name!", this.getType()));
+        	var name = inputStream.nextLine();
+        	this.setName(name);
+       }
+   }
 }

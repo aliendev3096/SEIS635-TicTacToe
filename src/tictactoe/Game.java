@@ -71,7 +71,7 @@ public class Game {
     }
     public boolean updateMove(String mark, int cell)
     {
-	Return this.board.updateBoard(mark, cell);
+	return this.board.updateBoard(mark, cell);
     }
 
     public GameStatus getStatus() {
@@ -82,25 +82,44 @@ public class Game {
     {
         this.status = status;
     }
-    public void promptMode(Scanner inputStream)
-    {
-        System.out.println("Select Game Mode: \n");
-        System.out.println("1: Player vs Player \n");
-        System.out.println("2: Player vs CPU \n");
-
-        String modeInput = inputStream.nextLine();
-
-        if(modeInput.equals("1"))
+ //   public void promptMode(Scanner inputStream)
+ //   {
+ //       System.out.println("Select Game Mode: \n");
+ //       System.out.println("1: Player vs Player \n");
+//        System.out.println("2: Player vs CPU \n");
+//
+//        String modeInput = inputStream.nextLine();
+//
+//        if(modeInput.equals("1"))
+//        {
+//            this.mode = GameMode.PvP;
+//        }
+//
+//        if(modeInput.equals("2"))
+//        {
+//            this.mode = GameMode.PvC;
+//            this.playerO.setName("CPU");
+ //           this.playerO.setMode(PlayerMode.Cpu);
+ //       }
+ public void promptMode(Scanner inputStream)
         {
-            this.mode = GameMode.PvP;
-        }
+            System.out.println("Select Game Mode: \n");
+            System.out.println("Player vs Player: Enter '1' else you will play the CPU \n");
 
-        if(modeInput.equals("2"))
-        {
-            this.mode = GameMode.PvC;
-            this.playerO.setName("CPU");
-            this.playerO.setMode(PlayerMode.Cpu);
-        }
+            String modeInput = inputStream.nextLine();
+
+            if(modeInput.equals("1"))
+            {
+                this.mode = GameMode.PvP;
+            }
+
+            else
+            	//(modeInput.equals("2"))
+            {
+                this.mode = GameMode.PvC;
+                this.playerO.setName("CPU");
+                this.playerO.setMode(PlayerMode.Cpu);
+            }
     }
     public Player getWinner() {
         return this.winner;

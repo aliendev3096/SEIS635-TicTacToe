@@ -42,7 +42,7 @@ public class main {
 						boolean	validmove = currentGame.updateMove("X", cell);
 						while (!validmove)
 						{
-							System.out.println(String.format("Invalid Move - please try again."));
+							System.out.println(String.format("Invalid move, please try again."));
 							cell = currentGame.makePlayerXMove(in); 
 							validmove = currentGame.updateMove("X", cell);
 						}
@@ -51,7 +51,7 @@ public class main {
 						boolean	validmove = currentGame.updateMove("O", cell);
 						while (!validmove)
 						{
-							System.out.println(String.format("Invalid Move - please try again."));
+							System.out.println(String.format("Invalid move, please try again."));
 							cell = currentGame.makePlayerXMove(in); 
 							validmove = currentGame.updateMove("O", cell);
 						}
@@ -106,9 +106,10 @@ public class main {
 
 	private static boolean PromptNewGame(Scanner inputStream)
 	{
-		System.out.println("Player Another Game? (Y/N)");
+		System.out.println("Enter '1' to play another game?");
 		String response = inputStream.nextLine();
 
-		return response.equals("Y") ? true : false;
+		return response.equals("1");
+    
 	}
 }
