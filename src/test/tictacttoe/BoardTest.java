@@ -1,13 +1,11 @@
 package test.tictacttoe;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 import tictactoe.Board;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+
+import org.junit.*;
 
 public class BoardTest {
     private Board board;

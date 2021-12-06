@@ -1,8 +1,7 @@
 package test.tictacttoe;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
+
 import tictactoe.*;
 
 import java.io.ByteArrayInputStream;
